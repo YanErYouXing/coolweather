@@ -1,6 +1,5 @@
 package com.coolweather.app.activity;
 
-
 import com.coolweather.app.R;
 import com.coolweather.app.service.AutoUpdateService;
 import com.coolweather.app.util.HttpCallbackListener;
@@ -20,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 
 public class WeatherActivity extends Activity implements OnClickListener {
 	private LinearLayout weatherInfoLayout;
@@ -62,7 +60,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.weather_layout);
-// 初始化各控件
+		// 初始化各控件
 		weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
 		cityNameText = (TextView) findViewById(R.id.city_name);
 		publishText = (TextView) findViewById(R.id.publish_text);
@@ -74,18 +72,18 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		refreshWeather = (Button) findViewById(R.id.refresh_weather);
 		String countyCode = getIntent().getStringExtra("county_code");
 		if (!TextUtils.isEmpty(countyCode)) {
-// 有县级代号时就去查询天气
+			// 有县级代号时就去查询天气
 			publishText.setText("同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
 			queryWeatherCode(countyCode);
-			} else {
-// 没有县级代号时就直接显示本地天气
-				showWeather();
-				}
+		} else {
+			// 没有县级代号时就直接显示本地天气
+			showWeather();
+		}
 		switchCity.setOnClickListener(this);
 		refreshWeather.setOnClickListener(this);
-		}
+	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -172,24 +170,22 @@ public class WeatherActivity extends Activity implements OnClickListener {
 	 * 从SharedPreferences文件中读取存储的天气信息，并显示到界面上。
 	 */
 	private void showWeather() {
-		SharedPreferences prefs = PreferenceManager.
-		getDefaultSharedPreferences(this);
-		cityNameText.setText( prefs.getString("city_name", ""));
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		cityNameText.setText(prefs.getString("city_name", ""));
 		temp1Text.setText(prefs.getString("temp1", ""));
 		temp2Text.setText(prefs.getString("temp2", ""));
 		weatherDespText.setText(prefs.getString("weather_desp", ""));
-		publishText.setText("今天" + prefs.getString("publish_time", "") +
-		"发布");
+		publishText.setText("今天" + prefs.getString("publish_time", "") + "发布");
 		currentDateText.setText(prefs.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
 		Intent intent = new Intent(this, AutoUpdateService.class);
 		startService(intent);
-		}
-		
+	}
 
 	public void onClick(DialogInterface dialog, int which) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
