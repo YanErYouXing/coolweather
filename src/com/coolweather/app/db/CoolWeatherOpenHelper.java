@@ -7,12 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class CoolWeatherOpenHelper extends SQLiteOpenHelper {
-	
-    private static final String REMOTE_IP = "10.31.105.64";  
-    private static final String URL = "jdbc:mysql://" + REMOTE_IP + "/collweather";  
-    private static final String USER = "root";  
-    private static final String PASSWORD = "1304614867";  
-	
 	/**
 	 * Province±ÌΩ®±Ì”Ôæ‰
 	 */
